@@ -66,9 +66,6 @@ async def get_region_callback(call: CallbackQuery, state: FSMContext):
     if call.data == "other_region":
         await call.message.answer(
             Messages.region_title.value.get(language_code),
-            reply_markup=get_contact(
-                Buttons.send_phone_number.value.get(language_code)
-            ),
         )
         return
 
