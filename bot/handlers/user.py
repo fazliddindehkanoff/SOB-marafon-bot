@@ -60,12 +60,36 @@ async def get_user_name(message: types.Message, state: FSMContext):
 async def get_region_callback(call: CallbackQuery, state: FSMContext):
     region = call.data.split("_")[1]
     await call.message.delete()
-    await state.update_data(region=region)
-
     data = await state.get_data()
     language_code = data.get("language_code", "uz")
 
+    if call.data == "other_region":
+        await call.message.answer(
+            Messages.region_title.value.get(language_code),
+            reply_markup=get_contact(
+                Buttons.send_phone_number.value.get(language_code)
+            ),
+        )
+        return
+
+    await state.update_data(region=region)
     await call.message.answer(
+        Messages.send_phone_number.value.get(language_code),
+        reply_markup=get_contact(
+            Buttons.send_phone_number.value.get(language_code),
+        ),
+    )
+    await state.set_state(UserStates.GET_PHONE)
+
+
+@user_router.message(UserStates.GET_REGION)
+async def get_region_message(message: types.Message, state: FSMContext):
+    region = message.text
+    await state.update_data(region=region)
+    data = await state.get_data()
+    language_code = data.get("language_code", "uz")
+
+    await message.answer(
         Messages.send_phone_number.value.get(language_code),
         reply_markup=get_contact(
             Buttons.send_phone_number.value.get(language_code),

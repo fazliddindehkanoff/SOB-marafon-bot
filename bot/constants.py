@@ -101,3 +101,7 @@ class Messages(Enum):
         "uz": "✅ To'lov muvaffaqiyatli bajarildi!\n\nGuruhga qo'shilish uchun quyidagi tugmani bosing",
         "ru": "✅ Платеж успешно выполнен!\n\nНажмите на кнопку ниже, чтобы присоединиться к группе",
     }
+    region_title = {
+        "uz": "📍 Manzilingizni yozishingiz mumkin",
+        "ru": "📍 Вы можете написать свой адрес",
+    }
