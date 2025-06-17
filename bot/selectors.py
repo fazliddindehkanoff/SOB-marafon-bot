@@ -103,3 +103,10 @@ def get_tarif(tarif_id: int) -> dict | None:
             "price": tarif.price,
         }
     return None
+
+
+async def get_chosen_tarif_private_link(chat_id: str) -> dict | None:
+    user = await get_user(chat_id)
+    if user and user.chosen_tarif:
+        return user.chosen_tarif.private_channel_link
+    return None

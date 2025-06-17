@@ -5,7 +5,6 @@ from .constants import LANGUAGES, REGIONS
 class Marathon(models.Model):
     name = models.CharField(max_length=250)
     date = models.DateField()
-    private_channel_link = models.CharField(max_length=150)
     public_offer_link = models.CharField(max_length=250)
     description = models.TextField()
 
@@ -14,6 +13,8 @@ class MarathonTarif(models.Model):
     marathon = models.ForeignKey(
         Marathon, on_delete=models.CASCADE, related_name="tarifs"
     )
+    private_channel_link = models.CharField(max_length=150, default="")
+    description = models.TextField(default="")
     name = models.CharField(max_length=250)
     price = models.DecimalField(max_digits=10, decimal_places=2)
 
@@ -62,6 +63,14 @@ class TelegramUser(models.Model):
     )
     registered_at = models.DateTimeField(auto_now_add=True)
     is_subscribed = models.BooleanField(default=False, verbose_name="Obuna")
+    chosen_tarif = models.ForeignKey(
+        MarathonTarif,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="users",
+        verbose_name="Tanlangan Tarif",
+    )
 
     class Meta:
         verbose_name = "Foydalanuvchi"

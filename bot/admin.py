@@ -17,7 +17,14 @@ admin.site.unregister(Group)
 
 class MarathonTarifAdmin(TabularInline):
     model = MarathonTarif
-    fields = ["name_uz", "name_ru", "price"]
+    fields = [
+        "name_uz",
+        "name_ru",
+        "price",
+        "private_channel_link",
+        "description_uz",
+        "description_ru",
+    ]
     extra = 1
 
     def get_formset(self, request, obj=None, **kwargs):
@@ -26,7 +33,9 @@ class MarathonTarifAdmin(TabularInline):
 
         form.base_fields["name_uz"].label = "Name (Uz)"
         form.base_fields["name_ru"].label = "Name (Ru)"
-
+        form.base_fields["description_uz"].label = "Description (Uz)"
+        form.base_fields["description_ru"].label = "Description (Ru)"
+        form.base_fields["private_channel_link"].label = "Private Channel Link"
         return formset
 
 

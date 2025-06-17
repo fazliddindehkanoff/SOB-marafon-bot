@@ -16,5 +16,5 @@ class FAQTranslationOptions(TranslationOptions):
 
 @register(MarathonTarif)
 class MarathonTarifTranslationOptions(TranslationOptions):
-    fields = ["name"]
+    fields = ["name", "description"]
     required_languages = ["uz", "ru"]

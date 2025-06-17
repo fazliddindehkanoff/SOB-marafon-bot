@@ -25,6 +25,7 @@ from bot.selectors import (
     get_user_language,
     get_tarif,
     get_last_marathon,
+    get_chosen_tarif_private_link,
 )
 
 load_dotenv()
@@ -155,6 +156,10 @@ async def handle_tarif_selection(call: CallbackQuery, state: FSMContext):
     language_code = await get_user_language(call.from_user.id)
     tarif = await get_tarif(tarif_id)
     marafon = await get_last_marathon()
+    await update_user(
+        chat_id=call.from_user.id,
+        chosen_tarif=tarif,
+    )
 
     await call.message.answer_invoice(
         title=tarif["name_uz"] if language_code == "uz" else tarif["name_ru"],
@@ -187,11 +192,11 @@ async def process_pre_checkout_query(
 @user_router.message(F.successful_payment)
 async def successful_payment(message: types.Message, state: FSMContext):
     language_code = await get_user_language(message.from_user.id)
-    last_marafon = await get_last_marathon()
+    private_link = await get_chosen_tarif_private_link(message.from_user.id)
     await message.answer(
         Messages.payment_successful.value.get(language_code),
         reply_markup=get_link_button(
-            last_marafon.private_channel_link,
+            private_link,
             Buttons.join_group.value.get(language_code),
         ),
     )
