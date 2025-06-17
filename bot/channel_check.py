@@ -50,17 +50,15 @@ class ChannelJoinMiddleware(BaseMiddleware):
                 ChatMemberStatus.ADMINISTRATOR,
                 ChatMemberStatus.CREATOR,
             ]:
-                # Handle different event types differently
                 if isinstance(event, Message):
                     await event.answer(
                         "❗️ Botdan foydalanish uchun kanalga a'zo bo'lishingiz kerak: https://t.me/gayrats_blog"
                     )
                 elif isinstance(event, CallbackQuery):
-                    await event.answer(
+                    await event.message.answer(
                         "❗️ Botdan foydalanish uchun kanalga a'zo bo'lishingiz kerak: https://t.me/your_channel_username",
-                        show_alert=True,
                     )
-                return  # Stop processing
+                return
 
         except TelegramBadRequest as e:
             logger.error(f"Failed to fetch chat member info for user {user_id}: {e}")
@@ -68,14 +66,14 @@ class ChannelJoinMiddleware(BaseMiddleware):
             # Handle error response based on event type
             if isinstance(event, Message):
                 await event.answer(
-                    "Xatolik yuz berdi. Iltimos, keyinroq urinib ko'ring."
+                    f"Xatolik yuz berdi. Iltimos, keyinroq urinib ko'ring.:{e}"
                 )
             elif isinstance(event, CallbackQuery):
                 await event.answer(
                     "Xatolik yuz berdi. Iltimos, keyinroq urinib ko'ring.",
                     show_alert=True,
                 )
-            return  # Stop processing
+            return
 
         except Exception as e:
             logger.error(f"Unexpected error in channel middleware: {e}")

@@ -6,7 +6,6 @@ from django.views.decorators.csrf import csrf_exempt
 from aiogram import Bot, Dispatcher
 from aiogram.types import Update
 
-from bot.channel_check import ChannelJoinMiddleware
 from bot.handlers import router
 
 load_dotenv()
@@ -15,8 +14,6 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
 dp.include_router(router)
-dp.message.middleware(ChannelJoinMiddleware())
-dp.callback_query.middleware(ChannelJoinMiddleware())
 
 
 @csrf_exempt
