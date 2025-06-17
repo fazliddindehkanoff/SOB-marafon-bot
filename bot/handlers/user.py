@@ -139,9 +139,9 @@ async def handle_accept_terms(call: CallbackQuery, state: FSMContext):
     last_marathon = await get_last_marathon()
     text = ""
     if language_code == "uz":
-        text += f"Marafon haqida ma'lumot:\n\n:{last_marathon.description_uz}"
+        text += f"Marafon haqida ma'lumot:\n\n{last_marathon.description_uz}"
     else:
-        text += f"Информация о марафоне:\n\n:{last_marathon.description_ru}"
+        text += f"Информация о марафоне:\n\n{last_marathon.description_ru}"
     await call.message.answer(
         text,
         reply_markup=await get_tarif_buttons(
