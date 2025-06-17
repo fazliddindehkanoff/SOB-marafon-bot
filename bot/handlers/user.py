@@ -165,9 +165,9 @@ async def handle_tarif_selection(call: CallbackQuery, state: FSMContext):
     await call.message.answer_invoice(
         title=tarif["name_uz"] if language_code == "uz" else tarif["name_ru"],
         description=(
-            marafon.description_uz
+            tarif.description_uz
             if language_code == "uz"
-            else marafon.description_ru  # noqa
+            else tarif.description_ru  # noqa
         ),
         payload="course-access",
         provider_token=os.getenv("PROVIDER_TOKEN"),
