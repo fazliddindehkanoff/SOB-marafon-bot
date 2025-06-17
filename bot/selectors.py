@@ -101,6 +101,8 @@ def get_tarif(tarif_id: int) -> dict | None:
             "name_uz": tarif.name_uz,
             "name_ru": tarif.name_ru,
             "price": tarif.price,
+            "description_uz": tarif.description_uz,
+            "description_ru": tarif.description_ru,
         }
     return None
 
