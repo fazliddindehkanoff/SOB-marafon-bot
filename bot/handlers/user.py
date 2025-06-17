@@ -156,7 +156,6 @@ async def handle_tarif_selection(call: CallbackQuery, state: FSMContext):
     tarif_id = call.data.split("_")[1]
     language_code = await get_user_language(call.from_user.id)
     tarif = await get_tarif(tarif_id)
-    marafon = await get_last_marathon()
     await update_user(
         chat_id=call.from_user.id,
         chosen_tarif=tarif,
@@ -165,9 +164,9 @@ async def handle_tarif_selection(call: CallbackQuery, state: FSMContext):
     await call.message.answer_invoice(
         title=tarif["name_uz"] if language_code == "uz" else tarif["name_ru"],
         description=(
-            tarif.description_uz
+            tarif["description_uz"]
             if language_code == "uz"
-            else tarif.description_ru  # noqa
+            else tarif["description_ru"]  # noqa
         ),
         payload="course-access",
         provider_token=os.getenv("PROVIDER_TOKEN"),
