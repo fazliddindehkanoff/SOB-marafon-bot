@@ -131,6 +131,7 @@ async def handle_phone_number(message: types.Message, state: FSMContext):
 
 
 @user_router.callback_query(F.data == "accept_terms")
+@user_router.callback_query(F.data == "back_to_payment")
 async def handle_accept_terms(call: CallbackQuery, state: FSMContext):
     await call.message.delete()
 
