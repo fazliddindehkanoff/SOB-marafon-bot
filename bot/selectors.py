@@ -107,6 +107,11 @@ def get_tarif(tarif_id: int) -> dict | None:
     return None
 
 
+@sync_to_async
+def get_chosen_tarif(tarif_id: str) -> dict | None:
+    return MarathonTarif.objects.filter(id=tarif_id).first()
+
+
 async def get_chosen_tarif_private_link(chat_id: str) -> dict | None:
     user = await get_user(chat_id)
     if user and user.chosen_tarif:
