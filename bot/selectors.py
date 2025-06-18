@@ -8,14 +8,14 @@ from .models import (
 )
 
 
-async def get_user(chat_id: str) -> bool | dict:
-    user = await sync_to_async(
-        TelegramUser.objects.filter(telegram_id=chat_id).first,
-    )()
-    if user:
-        return user
+@sync_to_async
+def fetch_user(chat_id: str):
+    return TelegramUser.objects.filter(telegram_id=chat_id).first()
 
-    return False
+
+async def get_user(chat_id: str) -> bool | TelegramUser:
+    user = await fetch_user(chat_id)
+    return user or False
 
 
 @sync_to_async
