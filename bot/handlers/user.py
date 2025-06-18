@@ -22,6 +22,7 @@ from bot.services import create_user, update_user
 from bot.selectors import (
     get_admin_username,
     get_all_faq,
+    get_chosen_tarif,
     get_user_language,
     get_tarif,
     get_last_marathon,
@@ -156,9 +157,11 @@ async def handle_tarif_selection(call: CallbackQuery, state: FSMContext):
     tarif_id = call.data.split("_")[1]
     language_code = await get_user_language(call.from_user.id)
     tarif = await get_tarif(tarif_id)
+    chosen_tarif_obj = await get_chosen_tarif(tarif_id)
+
     await update_user(
         chat_id=call.from_user.id,
-        chosen_tarif=tarif,
+        chosen_tarif=chosen_tarif_obj,
     )
 
     await call.message.answer_invoice(
