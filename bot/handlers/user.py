@@ -203,7 +203,7 @@ async def successful_payment(message: types.Message, state: FSMContext):
             Buttons.join_group.value.get(language_code),
         ),
     )
-    update_user(
+    await update_user(
         chat_id=message.from_user.id,
         is_subscribed=True,
     )
