@@ -16,7 +16,9 @@ class MarathonTarif(models.Model):
     private_channel_link = models.CharField(
         max_length=150, default="", blank=False, null=False
     )
-    private_group_link = models.CharField(max_length=150, default="")
+    private_group_link = models.CharField(
+        max_length=150, default="", null=True, blank=True
+    )
     description = models.TextField(default="")
     name = models.CharField(max_length=250)
     price = models.DecimalField(max_digits=10, decimal_places=2)
