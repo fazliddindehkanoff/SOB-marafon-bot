@@ -36,7 +36,7 @@ class MarathonTarifAdmin(TabularInline):
         form.base_fields["name_ru"].label = "Name (Ru)"
         form.base_fields["description_uz"].label = "Description (Uz)"
         form.base_fields["description_ru"].label = "Description (Ru)"
-        form.base_fields["private_channel_link"].label = "Private Channel Link"
+        form.base_fields["private_channel_link"].label = "Private Channel Link *"
         return formset
 
 
