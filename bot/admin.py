@@ -22,6 +22,7 @@ class MarathonTarifAdmin(TabularInline):
         "name_ru",
         "price",
         "private_channel_link",
+        "private_group_link",
         "description_uz",
         "description_ru",
     ]
