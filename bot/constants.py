@@ -61,6 +61,10 @@ class Buttons(Enum):
         "uz": "👥 Guruhga qo'shilish",
         "ru": "👥 Присоединиться к группе",
     }
+    join_channel = {
+        "uz": "📢 Kanalga qo'shilish",
+        "ru": "📢 Присоединиться к каналу",
+    }
 
 
 class Messages(Enum):

@@ -11,6 +11,6 @@ from .inline import (
     get_payment_keyboard,
     get_region_filter_keyboard,
     get_status_filter_keyboard,
-    get_link_button,
+    get_link_buttons,
     get_tarif_buttons,
 )

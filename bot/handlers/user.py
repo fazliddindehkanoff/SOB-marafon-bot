@@ -14,7 +14,7 @@ from bot.buttons import (
     get_change_buttons,
     get_language_options,
     remove_keyboard,
-    get_link_button,
+    get_link_buttons,
     get_tarif_buttons,
 )
 from bot.states import UserStates
@@ -26,7 +26,7 @@ from bot.selectors import (
     get_user_language,
     get_tarif,
     get_last_marathon,
-    get_chosen_tarif_private_link,
+    get_chosen_tarif_private_links,
 )
 
 load_dotenv()
@@ -195,12 +195,13 @@ async def process_pre_checkout_query(
 @user_router.message(F.successful_payment)
 async def successful_payment(message: types.Message, state: FSMContext):
     language_code = await get_user_language(message.from_user.id)
-    private_link = await get_chosen_tarif_private_link(message.from_user.id)
+    private_links = await get_chosen_tarif_private_links(message.from_user.id)
+
     await message.answer(
         Messages.payment_successful.value.get(language_code),
-        reply_markup=get_link_button(
-            private_link,
-            Buttons.join_group.value.get(language_code),
+        reply_markup=get_link_buttons(
+            data=private_links,
+            language_code=language_code,
         ),
     )
     await update_user(

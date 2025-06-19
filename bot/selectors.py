@@ -113,12 +113,15 @@ def get_chosen_tarif(tarif_id: str) -> dict | None:
 
 
 @sync_to_async
-def get_chosen_tarif_private_link(chat_id: str) -> str | None:
+def get_chosen_tarif_private_links(chat_id: str) -> str | None:
     user = (
         TelegramUser.objects.select_related("chosen_tarif")
         .filter(telegram_id=chat_id)
         .first()
     )
     if user and user.chosen_tarif:
-        return user.chosen_tarif.private_channel_link
+        return {
+            "channel": user.chosen_tarif.private_channel_link,
+            "group": user.chosen_tarif.private_group_link,
+        }
     return None
