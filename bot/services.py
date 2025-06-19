@@ -19,7 +19,14 @@ async def create_user(
 
 
 async def update_user(chat_id: str, **kwargs) -> None:
-    allowed_fields = {"phone_number", "full_name", "region", "language", "chosen_tarif"}
+    allowed_fields = {
+        "phone_number",
+        "full_name",
+        "region",
+        "language",
+        "chosen_tarif",
+        "is_subscribed",
+    }
     update_data = {k: v for k, v in kwargs.items() if k in allowed_fields}
     if update_data:
         await sync_to_async(
