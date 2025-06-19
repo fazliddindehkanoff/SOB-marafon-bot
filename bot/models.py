@@ -13,7 +13,9 @@ class MarathonTarif(models.Model):
     marathon = models.ForeignKey(
         Marathon, on_delete=models.CASCADE, related_name="tarifs"
     )
-    private_channel_link = models.CharField(max_length=150, default="")
+    private_channel_link = models.CharField(
+        max_length=150, default="", blank=False, null=False
+    )
     private_group_link = models.CharField(max_length=150, default="")
     description = models.TextField(default="")
     name = models.CharField(max_length=250)
