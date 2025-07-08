@@ -27,6 +27,9 @@ class MarathonTarif(models.Model):
         verbose_name = "Marathon Tarif"
         verbose_name_plural = "Marathon Tariflar"
 
+    def __str__(self):
+        return f"{self.name} - {self.marathon.name}"
+
 
 class FAQ(models.Model):
     question = models.CharField(max_length=500, verbose_name="Savol")

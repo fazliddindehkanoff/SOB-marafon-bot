@@ -363,3 +363,22 @@ async def back_to_main_menu(message: types.Message, state: FSMContext):
         reply_markup=get_main_menu_keyboards(language_code=language_code),
     )
     await state.clear()
+
+
+@user_router.message(F.text == Buttons.tariffs.value["uz"])
+@user_router.message(F.text == Buttons.tariffs.value["ru"])
+async def tariffs_handler(message: types.Message, state: FSMContext):
+    language_code = await get_user_language(message.from_user.id)
+    last_marathon = await get_last_marathon()
+
+    text = ""
+    if language_code == "uz":
+        text += f"Marafon haqida ma'lumot:\n\n{last_marathon.description_uz}"
+    else:
+        text += f"Информация о марафоне:\n\n{last_marathon.description_ru}"
+    await message.answer(
+        text,
+        reply_markup=await get_tarif_buttons(
+            language_code=language_code, marathon_id=last_marathon.id
+        ),
+    )

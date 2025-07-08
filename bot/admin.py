@@ -42,7 +42,14 @@ class MarathonTarifAdmin(TabularInline):
 
 @admin.register(TelegramUser)
 class TelegramUserAdmin(ModelAdmin):
-    list_display = ["full_name", "phone_number", "language"]
+    list_filter = ["is_subscribed", "chosen_tarif"]
+    list_display = [
+        "full_name",
+        "phone_number",
+        "language",
+        "is_subscribed",
+        "chosen_tarif",
+    ]
 
 
 @admin.register(FAQ)

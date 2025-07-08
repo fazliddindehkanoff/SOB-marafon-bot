@@ -41,6 +41,10 @@ class Buttons(Enum):
         "uz": "⚙️ Sozlamalar",
         "ru": "⚙️ Настройки",
     }
+    tariffs = {
+        "uz": "💰 Tariflar",
+        "ru": "💰 Тарифы",
+    }
     contact = {
         "uz": "📞 Biz bilan bog'lanish",
         "ru": "📞 Связаться с нами",

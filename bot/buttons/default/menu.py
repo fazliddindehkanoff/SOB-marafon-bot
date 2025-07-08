@@ -17,6 +17,9 @@ def get_main_menu_keyboards(language_code: str = "uz"):
                 KeyboardButton(
                     text=Buttons.settings.value.get(language_code),
                 ),
+                KeyboardButton(
+                    text=Buttons.tariffs.value.get(language_code),
+                ),
             ],
         ],
         resize_keyboard=True,
